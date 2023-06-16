@@ -1,9 +1,19 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 
-const UseFetch = () => {
-  return (
-    <div>UseFetch</div>
-  )
-}
+export const useFetch = (urlApi) => {
+  const [data, setData] = useState(null);
 
-export default UseFetch
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(urlApi);
+      const json = await response.json();
+
+      setData(json);
+    };
+
+    fetchData();
+
+  }, [urlApi]);
+
+  return { data };
+};
